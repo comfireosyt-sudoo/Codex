@@ -1,0 +1,7 @@
+# Build artifacts
+build/**/*.o
+output/ArcadeHub
+output/ArcadeHub.nwa
+
+# Distribution archive
+../ArcadeHub.zip
