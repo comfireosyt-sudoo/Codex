@@ -11,6 +11,7 @@ EXEEXT=
 endif
 
 BIN=output/$(APP_NAME)$(EXEEXT)
+BIN=output/$(APP_NAME)
 NWA=output/$(APP_NAME).nwa
 
 all: $(NWA)
