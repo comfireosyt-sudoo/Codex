@@ -72,3 +72,13 @@ ArcadeHub/
 └── output/
     └── ArcadeHub.nwa
 ```
+
+
+## Common Windows/MSYS2 fix
+If you see `ld.exe: cannot open output file output/ArcadeHub.exe: No such file or directory`, run:
+```bash
+mkdir -p output
+make clean
+make
+```
+The Makefile now auto-creates the output folder before linking.

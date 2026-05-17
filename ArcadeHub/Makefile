@@ -13,6 +13,7 @@ build/%.o: %.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 $(BIN): $(OBJ)
+	@mkdir -p $(dir $@)
 	$(CXX) $(OBJ) -o $@
 
 $(NWA): $(BIN)
