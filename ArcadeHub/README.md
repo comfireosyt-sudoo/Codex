@@ -36,15 +36,14 @@ The script:
 4. Shows clear success/failure logs
 
 
-## About `ArcadeHub.exe` vs `ArcadeHub.nwa`
-- `ArcadeHub.exe` is the desktop fallback binary produced by MinGW/MSYS2 and can be used for local smoke testing only.
-- `ArcadeHub.nwa` is the packaged file name produced by the Makefile. It is not meant to be opened directly on Windows.
-- If Windows ever shows `ArcadeHub.nwa.exe`, clean and rebuild:
+## Output behavior on Windows/MSYS2
+- The build now keeps intermediate `.exe` files in `build/` only and deletes them after packaging.
+- The `output/` folder is intentionally left with only one artifact: `ArcadeHub.nwa`.
+- If you still see old `ArcadeHub.exe` or `ArcadeHub.nwa.exe` files, they are stale leftovers; run:
 ```bash
 make clean
 make
 ```
-The updated Makefile now writes `output/ArcadeHub.nwa` explicitly.
 
 ## Install on NumWorks
 - If built with the NumWorks SDK tooling, install generated `.nwa` using your normal NumWorks install flow.

@@ -10,8 +10,7 @@ else
 EXEEXT=
 endif
 
-BIN=output/$(APP_NAME)$(EXEEXT)
-BIN=output/$(APP_NAME)
+BIN=build/$(APP_NAME)$(EXEEXT)
 NWA=output/$(APP_NAME).nwa
 
 all: $(NWA)
@@ -25,7 +24,9 @@ $(BIN): $(OBJ)
 	$(CXX) $(OBJ) -o $@
 
 $(NWA): $(BIN)
+	@mkdir -p $(dir $@)
 	@cp $(BIN) $(NWA)
+	@rm -f $(BIN)
 	@echo "Packaged $(NWA)"
 
 clean:
