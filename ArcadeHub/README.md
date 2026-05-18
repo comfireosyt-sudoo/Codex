@@ -20,31 +20,28 @@ Arcade Hub is a multi-game launcher for NumWorks calculators built in C++17 usin
 - HOME: exit app
 
 ## Build requirements
-1. Windows 10+ (for `build.bat`)
-2. GNU Make
-3. A C++17 toolchain (`arm-none-eabi-g++` preferred, desktop fallback supported)
-4. NumWorks app tooling (nwlink/nwbuild if available)
+1. GNU Make
+2. A C++17 toolchain (`g++` or `arm-none-eabi-g++`)
+3. NumWorks app tooling (nwlink/nwbuild) if you want real device-compatible binaries
 
-## Build
-```bat
-build.bat
-```
-The script:
-1. Detects available compiler/toolchain
-2. Builds sources
-3. Produces `output/ArcadeHub.nwa` (or desktop fallback binary wrapped with `.nwa` placeholder)
-4. Shows clear success/failure logs
-
-
-## About `ArcadeHub.exe` vs `ArcadeHub.nwa`
-- `ArcadeHub.exe` is the desktop fallback binary produced by MinGW/MSYS2 and can be used for local smoke testing only.
-- `ArcadeHub.nwa` is the packaged file name produced by the Makefile. It is not meant to be opened directly on Windows.
-- If Windows ever shows `ArcadeHub.nwa.exe`, clean and rebuild:
+## Build (Make only)
 ```bash
 make clean
 make
 ```
-The updated Makefile now writes `output/ArcadeHub.nwa` explicitly.
+This Makefile now uses `tools/package.py`, which requires official NumWorks tooling (`nwbuild`) to generate a valid `.nwa` package with metadata/icon.
+
+## Output behavior on Windows/MSYS2
+- If `nwbuild` is available, `make` produces `output/ArcadeHub.nwa` with proper metadata.
+- If `nwbuild` is missing, the build fails intentionally instead of generating an invalid fake `.nwa`.
+- Remove stale old files from previous runs with:
+```bash
+make clean
+```
+
+
+## Why you saw missing icon/name and `Size: NaN KB`
+That happens when a desktop executable is renamed to `.nwa`. The NumWorks installer expects a real package format containing metadata and icon resources, not a renamed `.exe`/ELF.
 
 ## Install on NumWorks
 - If built with the NumWorks SDK tooling, install generated `.nwa` using your normal NumWorks install flow.
