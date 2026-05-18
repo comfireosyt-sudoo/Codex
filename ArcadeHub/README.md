@@ -20,31 +20,24 @@ Arcade Hub is a multi-game launcher for NumWorks calculators built in C++17 usin
 - HOME: exit app
 
 ## Build requirements
-1. Windows 10+ (for `build.bat`)
-2. GNU Make
-3. A C++17 toolchain (`arm-none-eabi-g++` preferred, desktop fallback supported)
-4. NumWorks app tooling (nwlink/nwbuild if available)
+1. GNU Make
+2. A C++17 toolchain (`g++` or `arm-none-eabi-g++`)
+3. NumWorks app tooling (nwlink/nwbuild) if you want real device-compatible binaries
 
-## Build
-```bat
-build.bat
-```
-The script:
-1. Detects available compiler/toolchain
-2. Builds sources
-3. Produces `output/ArcadeHub.nwa` (or desktop fallback binary wrapped with `.nwa` placeholder)
-4. Shows clear success/failure logs
-
-
-## About `ArcadeHub.exe` vs `ArcadeHub.nwa`
-- `ArcadeHub.exe` is the desktop fallback binary produced by MinGW/MSYS2 and can be used for local smoke testing only.
-- `ArcadeHub.nwa` is the packaged file name produced by the Makefile. It is not meant to be opened directly on Windows.
-- If Windows ever shows `ArcadeHub.nwa.exe`, clean and rebuild:
+## Build (Make only)
 ```bash
 make clean
 make
 ```
-The updated Makefile now writes `output/ArcadeHub.nwa` explicitly.
+This Makefile now links directly to `output/ArcadeHub.nwa` so the `output/` directory contains only one artifact.
+
+## Output behavior on Windows/MSYS2
+- After `make`, `output/` contains only `ArcadeHub.nwa`.
+- If you still see old `ArcadeHub.exe` or `ArcadeHub.nwa.exe`, they are stale leftovers from older builds. Run:
+```bash
+make clean
+make
+```
 
 ## Install on NumWorks
 - If built with the NumWorks SDK tooling, install generated `.nwa` using your normal NumWorks install flow.
